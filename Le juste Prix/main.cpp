@@ -1,4 +1,5 @@
 #include <iostream>
+#include <array>
 #include "constante.h"
 #include "jeu.h"
 #include "menu.h"
@@ -10,6 +11,9 @@ int main()
 {
     cout << "Bienvenue au juste prix" << endl;
 
+    auto scores = TableauDeScores{0,0,0};
+    auto indiceCourant{0};
+
     bool continuer{true};
     while(continuer)
     {
@@ -20,14 +24,14 @@ int main()
         switch(choix)
         {
             case ChoixMenu::JOUER:
-                jouerPartie(3000);
+                scores[indiceCourant] = jouerPartie(3000);
+                indiceCourant = (indiceCourant + 1) % NOMBRE_SCORES;
                 break;
-            case ChoixMenu::JOUER_FACILE:
-                jouerPartie(250, BORNE_MAX_FACILE);
+
+            case ChoixMenu::AFFICHER_SCORES:
+                afficherScores(scores);
                 break;
-            case ChoixMenu::JOUER_TROIS_PARTIES:
-                jouerTroisParties();
-                break;
+
             case ChoixMenu::QUITTER:
                 cout << "Au revoir !" << endl;
                 continuer = false;

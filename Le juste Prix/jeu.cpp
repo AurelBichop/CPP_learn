@@ -1,12 +1,13 @@
 #include "jeu.h"
 #include "constante.h"
 
+#include <array>
 #include <iostream>
 
 using namespace std;
 
 
-void jouerPartie(int leJustePrix,int max){
+int jouerPartie(int leJustePrix,int max){
     auto proposition{0};
     auto nombreTentatives{0};
 
@@ -31,12 +32,18 @@ void jouerPartie(int leJustePrix,int max){
     }else{
         cout << "Partie abandonnée ..." << endl;
     }
+
+    return nombreTentatives;
 }
 
 
-void jouerTroisParties(){
-    cout << "C'est parti !" << endl;
-    for(auto aDeviner: {2018, 42, 1984}){
-        jouerPartie(aDeviner, BORNE_MAX);
+void afficherScores(TableauDeScores& scores){
+    cout << "Dernières parties : " << endl;
+    for(auto score:scores){
+        if(score == 0){
+            cout << "-" << endl;
+        }else{
+            cout << score << " tentatives" << endl;
+        }
     }
 }
